@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import java.util.Random
 
 class MainActivity : AppCompatActivity() {
@@ -31,12 +33,12 @@ class MainActivity : AppCompatActivity() {
         pickRandomNumbers();
     }
 
-    fun pickRandomNumbers()
+   private  fun pickRandomNumbers()
     {
         var leftButton = findViewById<Button>(R.id.left_number_button);
         var rightButton = findViewById<Button>(R.id.right_number_button);
 
-        var rand = Random();
+        val rand = Random();
 
         leftNum = rand.nextInt(10);
         rightNum = rand.nextInt(10);
@@ -45,4 +47,19 @@ class MainActivity : AppCompatActivity() {
         rightButton.text = "$rightNum";
     }
 
+    private fun updateScoreText(){
+        var scoreText = findViewById<TextView>(R.id.score_text)
+        val scoreString: String = scoreText.text.toString(R.id.score_text)
+        var winImage =findViewById<ImageView>(R.id.pickachu)
+        if(scoreString.toInt()> score){
+            Toast.makeText(this, "000 NO", Toast.LENGTH_SHORT).show()
+            winImage.visability = View.VISABLE
+        }
+        else if(scoreString.toInt() < score ){
+            Toast.makeText( this, "You got it!!", Toast.LENGTH_SHORT).show()
+            winImage.visability = View.INVISABLE
+        }
+
+        scoreText.text = "Score = $score"
+    }
 }
